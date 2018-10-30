@@ -52,6 +52,10 @@ app.get('/u/:shortURL', (req, res) => {
 	let longURL = urlDatabase[req.params.shortURL];
 	res.redirect(longURL);
 });
+app.post('/urls/:id/delete', (req, res) => {
+	delete urlDatabase[req.params.id];
+	res.redirect('/urls');
+});
 
 
 // You can only send variable to EJS inside an object
@@ -62,5 +66,4 @@ app.get('/hello', (req, res) => {
 
 app.listen(PORT, () => {
 	console.log(`Example app listening on port ${PORT}!`);
-	console.log(urlDatabase);
 });
