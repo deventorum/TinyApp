@@ -1,0 +1,17 @@
+{
+  "name": "tinyappproject",
+  "version": "1.0.0",
+  "description": "A full stack web app built with Node and Express that allows users to shorten long URLs",
+  "main": "express_server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Denys Tkachuk",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.1.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4"
+  }
+}
