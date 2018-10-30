@@ -1,28 +1,25 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>TinyApp</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
+<% include partials/_head %>
 
 <body>
-  <% include partials/_header %>
-  <main>
-    <ul>
-      <% Object.keys(urls).forEach( key => { %>
-      <li><a href="#">
-          <%= `${key}` %></a> : <a href="#">
-          <%= `${urls[key]}`%></a>
-        <form method="POST" action='/urls/<%= key %>/delete'><button class='delete-button'>Delete</button></form>
-      </li>
-      <% }) %>
-    </ul>
-  </main>
-
-
+  <div class="wrapper">
+    <% include partials/_header %>
+    <main>
+      <h2>Your Links</h2>
+      <ul>
+        <% Object.keys(urls).forEach( key => { %>
+        <li><a href="#">
+            <%= `${key}` %></a> : <a href="#">
+            <%= `${urls[key]}`%></a>
+          <form method="POST" action='/urls/<%= key %>/delete'><button class='delete-button'>Delete</button></form>
+        </li>
+        <% }) %>
+      </ul>
+    </main>
+    <% include partials/_footer.ejs %>
+  </div>
 </body>
 
 </html>

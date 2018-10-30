@@ -1,0 +1,73 @@
+// Compress the images
+body {
+  text-align: center;
+  background-color: wheat;
+}
+
+img {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+}
+
+h1,
+h2,
+h3 {
+  text-transform: uppercase;
+  margin: 0;
+  margin: 20px;
+}
+
+ul {
+  list-style: none;
+}
+
+main {
+  width: 100%;
+}
+
+section {
+  padding: 0 50px;
+  border-top: 2px solid black;
+  width: 100%;
+}
+li {
+  margin: 20px 0;
+  height: 30px;
+}
+a {
+  color: black;
+}
+p {
+  line-height: 1.5;
+  text-align: center;
+  margin: 0;
+}
+
+button {
+  border: 2px solid black;
+  background-color: white;
+  padding: 10px 15px;
+  display: inline;
+}
+button:hover {
+  background-color: red;
+  transition: $trans;
+}
+
+form {
+  display: inline-block;
+}
+footer {
+  margin: 20px;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

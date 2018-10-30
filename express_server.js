@@ -5,10 +5,12 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
+app.use('/styles', express.static(__dirname + '/styles'));
 
 function generateRandomString() {
 	const set = '0123456789abcdefghijklmnopqrstuvwxyz'.split('');
 	const output = [];
+	console.log(set);
 	for (let i = 0; i < 6; i++) {
 		output.push(set[Math.floor(Math.random() * 36 + 1)]);
 	}
