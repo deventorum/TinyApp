@@ -7,8 +7,8 @@
   <% include partials/_header %>
   <div class="wrapper">
     <main>
-      <h2>ShortURL: <span class='bold'>
-          <%= shortURL %></span></h2>
+      <h2>ShortURL: <a href="<%= longURL[shortURL] %>"><span class='bold'>
+            <%= `localhost:8080/u/${shortURL}` %></span></a></h2>
       <form action="/urls/<%= shortURL %>" method="POST">
         <input type="text" name='updatedURL' placeholder=' <%= longURL[shortURL] %> ' value='<%= longURL[shortURL] %>'>
         <button class='update-button'>Update</button>

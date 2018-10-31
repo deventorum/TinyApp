@@ -10,9 +10,9 @@
       <h2>Your Links</h2>
       <ul>
         <% Object.keys(urls).forEach( key => { %>
-        <li><a href="#">
-            <%= `${key}` %></a> : <a href="#">
-            <%= `${urls[key]}`%></a>
+        <li><a href="<%= urls[key]%>">
+            <%= `localhost:8080/u/${key}` %></a> : <a href="<%= urls[key]%>">
+            <%= urls[key]%></a>
           <a href='/urls/<%= key %>' class="edit-button">Edit</a>
           <form method="POST" action='/urls/<%= key %>/delete'><button class='delete-button'>Delete</button></form>
         </li>
