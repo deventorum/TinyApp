@@ -64,6 +64,24 @@ header {
     }
   }
 }
+label {
+  margin-left: 10px;
+}
+.registration {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0 auto;
+  width: 300px;
+  input {
+    margin: 10px 0;
+  }
+  button {
+    margin: 10px 0;
+  }
+}
 .logged {
   flex-direction: column;
   justify-content: space-around;
@@ -78,7 +96,7 @@ header {
   display: flex;
   align-items: center;
 }
-.login-nav form {
+.login form {
   margin: 20px;
 }
 .user-button {
@@ -96,7 +114,7 @@ button {
   font-size: 2rem;
   font-family: sans-serif;
   font-weight: normal;
-  height: 100%;
+  height: $std-height;
   padding: 10px 15px;
   display: inline-block;
   border-radius: $std-radius;
@@ -118,19 +136,21 @@ footer {
   }
 }
 input {
-  height: 100%;
+  height: $std-height;
   border-radius: $std-radius;
   border: $std-border;
+  color: rgb(235, 192, 112);
+  width: 300px;
+}
+input::placeholder {
+  text-align: center;
+  color: rgb(235, 192, 112);
 }
 
 input[type='text'],
-input[type='email'] {
-  width: 300px;
-  padding: 0 10px;
-}
 input[type='email'],
-input[type='email']::placeholder {
-  color: rgb(235, 192, 112);
+input[type='password'] {
+  padding: 10px 10px;
 }
 .error {
   color: red;

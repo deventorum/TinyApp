@@ -6,11 +6,13 @@
       <li><a href="/urls/new">Create a new link</a></li>
     </ul>
     <% if (!userEmail ) { %>
-    <div class="login-nav">
+    <div class="login">
       <form action="/urls/login" method="POST">
-        <input type="email" placeholder="Enter your email adrress" name='userEmail'>
+        <input type="email" placeholder="Enter your email address" name='userEmail'>
         <button class='user-button'>Login</button>
       </form>
+      <form action="/register" method='GET'>
+        <button class='user-button'>Register</button></form>
     </div>
     <% } %>
     <% if (userEmail) { %>

@@ -14,6 +14,7 @@ const urlDatabase = {
 	'b2xVn2': 'http://www.lighthouselabs.ca',
 	'9sm5xK': 'http://www.google.com'
 };
+const users = {};
 
 app.get('/', (req, res) => {
 	res.send('Hello!');
@@ -32,6 +33,15 @@ app.post('/urls', (req, res) => {
 
 app.post('/logout', (req, res) => {
 	res.clearCookie('userEmail');
+	res.redirect('/urls');
+});
+
+app.get('/register', (req, res) => {
+	let templateVars = { userEmail: req.cookies['userEmail']};
+	res.render('register', templateVars);
+});
+app.post('/register', (req, res) => {
+	
 	res.redirect('/urls');
 });
 
@@ -62,6 +72,7 @@ app.get('/urls/:id', (req, res) => {
 		userEmail: req.cookies['userEmail']};
 	res.render('urls_show', templateVars);
 });
+
 app.post('/urls/:id', (req, res) => {
 	urlDatabase[req.params.id] = req.body.updatedURL;
 	res.redirect('/urls');

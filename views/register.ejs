@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<% include partials/_head %>
+
+<body>
+  <% include partials/_header %>
+  <div class="wrapper">
+    <main>
+      <form action="" class="registration" method='POST'>
+        <label for="email">Email</label>
+        <input id="email" type="email" name="userEmail" placeholder="Enter your email address">
+        <label for="name">Name</label>
+        <input id="name" type="text" name="userName" placeholder="Enter your name">
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password" placeholder="Enter your password">
+        <input type="password" name="confPassword" placeholder="Confirm the password">
+        <button class="user-button">Create an account</button>
+      </form>
+    </main>
+  </div>
+  <% include partials/_footer %>
+</body>
+
+</html>
