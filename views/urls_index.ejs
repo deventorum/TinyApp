@@ -13,6 +13,7 @@
         <li><a href="#">
             <%= `${key}` %></a> : <a href="#">
             <%= `${urls[key]}`%></a>
+          <a href='/urls/<%= key %>' class="edit-button">Edit</a>
           <form method="POST" action='/urls/<%= key %>/delete'><button class='delete-button'>Delete</button></form>
         </li>
         <% }) %>

@@ -10,9 +10,8 @@ app.use('/styles', express.static(__dirname + '/styles'));
 function generateRandomString() {
 	const set = '0123456789abcdefghijklmnopqrstuvwxyz'.split('');
 	const output = [];
-	console.log(set);
 	for (let i = 0; i < 6; i++) {
-		output.push(set[Math.floor(Math.random() * 36 + 1)]);
+		output.push(set[Math.floor(Math.random() * 36)]);
 	}
 	return output.join('');
 }
@@ -49,6 +48,10 @@ app.get('/urls/:id', (req, res) => {
 		shortURL: req.params.id,
 		longURL: urlDatabase};
 	res.render('urls_show', templateVars);
+});
+app.post('/urls/:id', (req, res) => {
+	urlDatabase[req.params.id] = req.body.updatedURL;
+	res.redirect('/urls');
 });
 app.get('/u/:shortURL', (req, res) => {
 	let longURL = urlDatabase[req.params.shortURL];

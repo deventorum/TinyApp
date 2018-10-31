@@ -254,7 +254,7 @@ h3 {
 
 body {
   text-align: center;
-  background-color: wheat;
+  background-color: #f0fff0;
 }
 
 img {
@@ -271,6 +271,16 @@ h3 {
   margin: 20px;
 }
 
+header {
+  background-color: #191919;
+}
+
+header h1,
+header a {
+  color: #f0fff0;
+  text-decoration: none;
+}
+
 ul {
   list-style: none;
 }
@@ -279,19 +289,14 @@ main {
   width: 100%;
 }
 
-section {
-  padding: 0 50px;
-  border-top: 2px solid black;
-  width: 100%;
-}
-
 li {
-  margin: 20px 0;
-  height: 30px;
+  margin: 15px 0;
+  height: 50px;
 }
 
 a {
   color: black;
+  text-transform: none;
 }
 
 p {
@@ -303,8 +308,13 @@ p {
 button {
   border: 2px solid black;
   background-color: white;
+  font-size: 2rem;
+  font-family: sans-serif;
+  font-weight: normal;
+  height: 100%;
   padding: 10px 15px;
-  display: inline;
+  display: inline-block;
+  border-radius: 10px;
 }
 
 button:hover {
@@ -315,10 +325,35 @@ button:hover {
 
 form {
   display: inline-block;
+  height: 50px;
 }
 
 footer {
-  margin: 20px;
+  padding: 20px;
+  background-color: #191919;
+}
+
+footer p {
+  color: #f0fff0;
+}
+
+input {
+  height: 100%;
+  border-radius: 10px;
+  border: 2px solid black;
+}
+
+input[type='text'] {
+  width: 300px;
+  padding: 0 10px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.update-button:hover {
+  background-color: lightgreen;
 }
 
 .wrapper {
@@ -336,5 +371,22 @@ footer {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+}
+
+.edit-button {
+  border: 2px solid black;
+  background-color: white;
+  padding: 11.5px 15px;
+  height: 100%;
+  display: inline-block;
+  text-decoration: none;
+  margin: 0px 15px;
+  border-radius: 10px;
+}
+
+.edit-button:hover {
+  background-color: lightblue;
+  -webkit-transition: all 0.5s linear;
+  transition: all 0.5s linear;
 }
 /*# sourceMappingURL=main.css.map */

@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>TinyApp</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
+<% include partials/_head %>
 
 <body>
-  <% include partials/_header %>
-  <main>
-    <h2>Your new link!</h2>
-    <li><a href="#">
-        <%= `${shortURL} : ${longURL[shortURL]}` %>
-      </a></li>
-  </main>
+
+  <div class="wrapper">
+
+    <% include partials/_header %>
+
+    <main>
+      <h2>ShortURL: <span class='bold'>
+          <%= shortURL %></span></h2>
+      <form action="/urls/<%= shortURL %>" method="POST">
+        <input type="text" name='updatedURL' placeholder=' <%= longURL[shortURL] %> ' value='<%= longURL[shortURL] %>'>
+        <button class='update-button'>Update</button>
+      </form>
+    </main>
+
+    <% include partials/_footer %>
+
+  </div>
+
 </body>
 
 </html>

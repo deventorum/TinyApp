@@ -1,7 +1,7 @@
 // Compress the images
 body {
   text-align: center;
-  background-color: wheat;
+  background-color: $white;
 }
 
 img {
@@ -17,6 +17,15 @@ h3 {
   margin: 0;
   margin: 20px;
 }
+header {
+  background-color: $black;
+
+  h1,
+  a {
+    color: $white;
+    text-decoration: none;
+  }
+}
 
 ul {
   list-style: none;
@@ -26,17 +35,13 @@ main {
   width: 100%;
 }
 
-section {
-  padding: 0 50px;
-  border-top: 2px solid black;
-  width: 100%;
-}
 li {
-  margin: 20px 0;
-  height: 30px;
+  margin: 15px 0;
+  height: $std-height;
 }
 a {
   color: black;
+  text-transform: none;
 }
 p {
   line-height: 1.5;
@@ -45,10 +50,15 @@ p {
 }
 
 button {
-  border: 2px solid black;
+  border: $std-border;
   background-color: white;
+  font-size: 2rem;
+  font-family: sans-serif;
+  font-weight: normal;
+  height: 100%;
   padding: 10px 15px;
-  display: inline;
+  display: inline-block;
+  border-radius: $std-radius;
 }
 button:hover {
   background-color: red;
@@ -57,9 +67,30 @@ button:hover {
 
 form {
   display: inline-block;
+  height: $std-height;
 }
 footer {
-  margin: 20px;
+  padding: 20px;
+  background-color: $black;
+  p {
+    color: $white;
+  }
+}
+input {
+  height: 100%;
+  border-radius: $std-radius;
+  border: $std-border;
+}
+
+input[type='text'] {
+  width: 300px;
+  padding: 0 10px;
+}
+.bold {
+  font-weight: bold;
+}
+.update-button:hover {
+  background-color: lightgreen;
 }
 
 .wrapper {
@@ -70,4 +101,18 @@ footer {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+.edit-button {
+  border: $std-border;
+  background-color: white;
+  padding: 11.5px 15px;
+  height: 100%;
+  display: inline-block;
+  text-decoration: none;
+  margin: 0px 15px;
+  border-radius: $std-radius;
+}
+.edit-button:hover {
+  background-color: lightblue;
+  transition: $trans;
 }
