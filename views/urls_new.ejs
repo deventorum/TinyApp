@@ -4,10 +4,8 @@
 <% include partials/_head %>
 
 <body>
+  <% include partials/_header %>
   <div class="wrapper">
-
-    <% include partials/_header %>
-
     <main>
       <form action="/urls" method="POST" style="margin:150px;">
         <label for="longURL">Enter a URL:</label>
@@ -15,10 +13,8 @@
         <button class='update-button'>Submit</button>
       </form>
     </main>
-
-    <% include partials/_footer %>
-
   </div>
+  <% include partials/_footer %>
 
 </body>
 

@@ -1,13 +1,11 @@
-// Compress the images
+// General styles
 body {
   text-align: center;
   background-color: $white;
-}
-
-img {
-  width: 100%;
-  max-width: 100%;
-  display: block;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 h1,
@@ -16,15 +14,6 @@ h3 {
   text-transform: uppercase;
   margin: 0;
   margin: 20px;
-}
-header {
-  background-color: $black;
-
-  h1,
-  a {
-    color: $white;
-    text-decoration: none;
-  }
 }
 
 ul {
@@ -49,6 +38,58 @@ p {
   margin: 0;
 }
 
+//Specific styles
+header {
+  background-color: $black;
+
+  h1,
+  a {
+    color: $white;
+    text-decoration: none;
+  }
+  a:hover {
+    color: orange;
+    transition: $trans;
+  }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+
+    ul,
+    div {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+  }
+}
+.logged {
+  flex-direction: column;
+  justify-content: space-around;
+
+  button {
+    padding: 0 10px;
+    height: 35px;
+  }
+}
+.gen-nav li {
+  margin: 0 20px;
+  display: flex;
+  align-items: center;
+}
+.login-nav form {
+  margin: 20px;
+}
+.user-button {
+  color: orange;
+}
+.user-button:hover {
+  color: $black;
+  background-color: orange;
+  transition: $trans;
+}
+
 button {
   border: $std-border;
   background-color: white;
@@ -60,7 +101,7 @@ button {
   display: inline-block;
   border-radius: $std-radius;
 }
-button:hover {
+.delete-button:hover {
   background-color: red;
   transition: $trans;
 }
@@ -82,9 +123,20 @@ input {
   border: $std-border;
 }
 
-input[type='text'] {
+input[type='text'],
+input[type='email'] {
   width: 300px;
   padding: 0 10px;
+}
+input[type='email'],
+input[type='email']::placeholder {
+  color: rgb(235, 192, 112);
+}
+.error {
+  color: red;
+}
+.user-email {
+  color: orange;
 }
 .bold {
   font-weight: bold;
@@ -97,10 +149,6 @@ input[type='text'] {
   width: 100%;
   max-width: 1140px;
   margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 .edit-button {
   border: $std-border;

@@ -1,9 +1,28 @@
 <header>
   <h1> TinyApp URL Shortener</h1>
   <nav>
-    <ul>
+    <ul class="gen-nav">
       <li><a href="/urls">Home</a></li>
       <li><a href="/urls/new">Create a new link</a></li>
     </ul>
+    <% if (!userEmail ) { %>
+    <div class="login-nav">
+      <form action="/urls/login" method="POST">
+        <input type="email" placeholder="Enter your email adrress" name='userEmail'>
+        <button class='user-button'>Login</button>
+      </form>
+    </div>
+    <% } %>
+    <% if (userEmail) { %>
+    <div class="logged">
+      <p class="user-email">
+        Signed in as
+        <%= userEmail %>
+      </p>
+      <form action="/logout" method="POST">
+        <button class='user-button'>Log Out</button>
+      </form>
+    </div>
+    <% } %>
   </nav>
 </header>

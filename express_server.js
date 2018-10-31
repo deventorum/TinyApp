@@ -2,19 +2,14 @@ const express = require('express');
 const app = express();
 const PORT = 8080; // default port 8080
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const tools = require('./functions');
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.use('/styles', express.static(__dirname + '/styles'));
 
-function generateRandomString() {
-	const set = '0123456789abcdefghijklmnopqrstuvwxyz'.split('');
-	const output = [];
-	for (let i = 0; i < 6; i++) {
-		output.push(set[Math.floor(Math.random() * 36)]);
-	}
-	return output.join('');
-}
 const urlDatabase = {
 	'b2xVn2': 'http://www.lighthouselabs.ca',
 	'9sm5xK': 'http://www.google.com'
@@ -25,28 +20,46 @@ app.get('/', (req, res) => {
 });
 
 app.get('/urls', (req, res) => {
-	let templateVars = { urls: urlDatabase };
+	let templateVars = { urls: urlDatabase, userEmail: req.cookies['userEmail']};
 	res.render('urls_index', templateVars);
 });
 
 app.post('/urls', (req, res) => {
-	let newShortURL = generateRandomString();
+	let newShortURL = tools.generateRandomString();
 	urlDatabase[newShortURL] = req.body.longURL;
 	res.redirect(`/urls/${newShortURL}`);
+});
+
+app.post('/logout', (req, res) => {
+	res.clearCookie('userEmail');
+	res.redirect('/urls');
 });
 
 app.get('/urls.json', (req, res) => {
 	res.json(urlDatabase);
 });
 
+app.post('/urls/login', (req, res) => {
+	if (tools.validateEmail(req.body.userEmail)) {
+		res.cookie('userEmail', req.body.userEmail);
+		console.log('Cookies: ', res.cookie);
+		res.redirect('/urls');
+	} else {
+		let templateVars = { urls: urlDatabase, errorMessage: 'The entered email address is not valid!', userEmail: req.cookies['userEmail'] };
+		res.render('urls_error', templateVars);
+	}
+});
+
 app.get('/urls/new', (req, res) => {
-	res.render('urls_new');
+	let templateVars = { urls: urlDatabase, userEmail: req.cookies['userEmail']};
+	res.render('urls_new', templateVars);
 });
 
 app.get('/urls/:id', (req, res) => {
 	let templateVars = {
 		shortURL: req.params.id,
-		longURL: urlDatabase};
+		longURL: urlDatabase,
+		userEmail: req.cookies['userEmail']};
 	res.render('urls_show', templateVars);
 });
 app.post('/urls/:id', (req, res) => {
