@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/urls', (req, res) => {
-	let templateVars = { urls: urlDatabase, userID: req.cookies['userID']};
+	let templateVars = { urls: urlDatabase, user: users[req.cookies['userID']]};
 	res.render('urls_index', templateVars);
 });
 
@@ -50,7 +50,7 @@ app.post('/logout', (req, res) => {
 });
 
 app.get('/register', (req, res) => {
-	let templateVars = { userID: req.cookies['userID'], error: ''};
+	let templateVars = { user: users[req.cookies['userID']], error: ''};
 	res.render('register', templateVars);
 });
 
@@ -60,7 +60,7 @@ app.post('/register', (req, res) => {
 	console.log(newID);
 	const enteredUser = req.body.userName;
 	const enteredEmail = req.body.userEmail;
-	let templateVars = {userID: req.cookies['userID'], error: ''};
+	let templateVars = {user: users[req.cookies['userID']], error: ''};
 
 	// password check
 	if (req.body.password !== req.body.confPassword) {
@@ -88,7 +88,7 @@ app.post('/register', (req, res) => {
 			userEmail: enteredEmail,
 			password: req.body.password
 		};
-		res.cookie('userID', req.body.userName);
+		res.cookie('userID', newID);
 		console.log(users);
 		res.redirect('/urls');
 	}
@@ -101,16 +101,16 @@ app.get('/urls.json', (req, res) => {
 app.post('/urls/login', (req, res) => {
 	// This code has to be changed, out-of-date server-side logic
 	if (tools.validateEmail(req.body.userEmail)) {
-		res.cookie('userEmail', req.body.userEmail);
+		// res.cookie('userEmail', req.body.userEmail);
 		res.redirect('/urls');
 	} else {
-		let templateVars = { urls: urlDatabase, errorMessage: 'The entered email address is not valid!', userID: req.cookies['userID'] };
-		res.render('urls_error', templateVars);
+		// let templateVars = { urls: urlDatabase, errorMessage: 'The entered email address is not valid!', userID: req.cookies['userID'] };
+		// res.render('urls_error', templateVars);
 	}
 });
 
 app.get('/urls/new', (req, res) => {
-	let templateVars = { urls: urlDatabase, userID: req.cookies['userID']};
+	let templateVars = { urls: urlDatabase, user: users[req.cookies['userID']]};
 	res.render('urls_new', templateVars);
 });
 
@@ -118,7 +118,7 @@ app.get('/urls/:id', (req, res) => {
 	let templateVars = {
 		shortURL: req.params.id,
 		longURL: urlDatabase,
-		userID: req.cookies['userID']};
+		user: users[req.cookies['userID']]};
 	res.render('urls_show', templateVars);
 });
 

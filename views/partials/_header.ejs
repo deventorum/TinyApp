@@ -5,7 +5,7 @@
       <li><a href="/urls">Home</a></li>
       <li><a href="/urls/new">Create a new link</a></li>
     </ul>
-    <% if (!userID ) { %>
+    <% if (user == undefined ) { %>
     <div class="login">
       <form action="/urls/login" method="POST">
         <input type="email" placeholder="Enter your email address" name='userEmail'>
@@ -15,11 +15,11 @@
         <button class='user-button'>Register</button></form>
     </div>
     <% } %>
-    <% if (userID) { %>
+    <% if (user != undefined) { %>
     <div class="logged">
       <p class="user-email">
         Signed in as
-        <%= userID %>
+        <%= user.userName %>
       </p>
       <form action="/logout" method="POST">
         <button class='user-button'>Log Out</button>
