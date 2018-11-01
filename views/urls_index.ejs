@@ -7,17 +7,36 @@
   <% include partials/_header %>
   <div class="wrapper">
     <main>
-      <h2>Your Links</h2>
-      <ul>
-        <% Object.keys(urls).forEach( key => { %>
-        <li><a href="<%= urls[key]%>">
-            <%= `localhost:8080/u/${key}` %></a> : <a href="<%= urls[key]%>">
-            <%= urls[key]%></a>
-          <a href='/urls/<%= key %>' class="edit-button">Edit</a>
-          <form method="POST" action='/urls/<%= key %>/delete'><button class='delete-button'>Delete</button></form>
-        </li>
-        <% }) %>
-      </ul>
+      <% if (user !== undefined) { %>
+      <div class='user-links'>
+        <h2>Your Links</h2>
+        <ul>
+          <% Object.keys(urls).forEach( key => { %>
+          <% if (urls[key].id == user.id) { %>
+          <li><a href="<%= urls[key].url%>">
+              <%= `localhost:8080/u/${key}` %></a> : <a href="<%= urls[key].url%>">
+              <%= urls[key].url%></a>
+            <a href='/urls/<%= key %>' class="edit-button">Edit</a>
+            <form method="POST" action='/urls/<%= key %>/delete'><button class='delete-button'>Delete</button></form>
+          </li>
+          <% } %>
+          <% }) %>
+          <li><a href="/urls/new">Create a new link</a></li>
+        </ul>
+      </div>
+      <% } %>
+      <% if (user === undefined) { %>
+      <div class="not-logged">
+        <h2>Get Started</h2>
+        <div class="login">
+          <form action="/login" method="GET">
+            <button class='user-button'>Existing User</button>
+          </form>
+          <form action="/register" method='GET'>
+            <button class='user-button'>New User</button></form>
+        </div>
+      </div>
+      <% } %>
     </main>
   </div>
   <% include partials/_footer.ejs %>

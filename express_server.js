@@ -11,8 +11,10 @@ app.set('view engine', 'ejs');
 app.use('/styles', express.static(__dirname + '/styles'));
 
 const urlDatabase = {
-	'b2xVn2': 'http://www.lighthouselabs.ca',
-	'9sm5xK': 'http://www.google.com'
+	'b2xVn2': {id: 'userRandomID',
+		url: 'http://www.lighthouselabs.ca'},
+	'9sm5xK': {id: 'user2RandomID',
+		url: 'http://www.google.com'}
 };
 const users = { 
 	'userRandomID': {
@@ -40,7 +42,7 @@ app.get('/urls', (req, res) => {
 
 app.post('/urls', (req, res) => {
 	let newShortURL = tools.generateRandomString();
-	urlDatabase[newShortURL] = req.body.longURL;
+	urlDatabase[newShortURL] = {id: users[req.cookies['userID']].id, url: req.body.longURL};
 	res.redirect(`/urls/${newShortURL}`);
 });
 
@@ -95,7 +97,9 @@ app.post('/register', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-	let templateVars = { user: users[req.cookies['userID']], error: ''};
+	let templateVars = {
+		user: users[req.cookies['userID']],
+		error: ''};
 	res.render('urls_login', templateVars);
 });
 
@@ -122,44 +126,64 @@ app.post('/login', (req, res) => {
 });
 
 
-
-
 app.get('/urls.json', (req, res) => {
 	res.json(urlDatabase);
 });
 
-
+// adds a new short link
 app.get('/urls/new', (req, res) => {
-	let templateVars = { urls: urlDatabase, user: users[req.cookies['userID']]};
-	res.render('urls_new', templateVars);
-});
-
-app.get('/urls/:id', (req, res) => {
-	let templateVars = {
-		shortURL: req.params.id,
-		longURL: urlDatabase,
-		user: users[req.cookies['userID']]};
-	res.render('urls_show', templateVars);
-});
-
-app.post('/urls/:id', (req, res) => {
-	urlDatabase[req.params.id] = req.body.updatedURL;
+	if (req.cookies['userID']) {
+		let templateVars = { urls: urlDatabase, user: users[req.cookies['userID']]};
+		if (users[req.cookies['userID']] !== undefined) {
+			res.render('urls_new', templateVars);
+		}
+	}
 	res.redirect('/urls');
 });
+
+// User can change the existing short URL (only if there is a proper cookie)
+app.get('/urls/:id', (req, res) => {
+	if (req.cookies['userID']) {
+		if (users[req.cookies['userID']].id === urlDatabase[req.params.id].id) {
+			let templateVars = {
+				shortURL: req.params.id,
+				longURL: urlDatabase,
+				user: users[req.cookies['userID']]
+			};
+			res.render('urls_show', templateVars);
+		} 
+	} else {
+		res.redirect('/urls');
+	}
+});
+
+// Updates an existing short URL if user has a cookie 
+app.post('/urls/:id', (req, res) => {
+	if (req.cookies['userID']) {
+		if (users[req.cookies['userID']].id === urlDatabase[req.params.id].id) {
+			urlDatabase[req.params.id] = {
+				id: users[req.cookies['userID']].id,
+				url: req.body.updatedURL
+			};
+		}
+	}
+	res.redirect('/urls');
+});
+
+// Redirects user to the other website that store in URL database (no cookie needed)
 app.get('/u/:shortURL', (req, res) => {
-	let longURL = urlDatabase[req.params.shortURL];
+	let longURL = urlDatabase[req.params.shortURL].url;
 	res.redirect(longURL);
 });
+
+// Deletes a short URL if user has a cookie
 app.post('/urls/:id/delete', (req, res) => {
-	delete urlDatabase[req.params.id];
+	if (req.cookies['userID']) {
+		if (users[req.cookies['userID']].id === urlDatabase[req.params.id].id) {
+			delete urlDatabase[req.params.id];
+		}
+	}
 	res.redirect('/urls');
-});
-
-
-// You can only send variable to EJS inside an object
-app.get('/hello', (req, res) => {
-	let templateVars = { greeting: 'Hello World!' };
-	res.render('hello_world', templateVars);
 });
 
 app.listen(PORT, () => {
