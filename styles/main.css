@@ -393,7 +393,23 @@ label {
 }
 
 .login form {
-  margin: 20px;
+  margin: 10px;
+}
+
+.login-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .user-button {
@@ -427,7 +443,6 @@ button {
 
 form {
   display: inline-block;
-  height: 50px;
 }
 
 footer {
@@ -446,6 +461,7 @@ input {
   border: 2px solid black;
   color: #ebc070;
   width: 300px;
+  margin: 10px 0;
 }
 
 input::-webkit-input-placeholder {

@@ -97,7 +97,13 @@ label {
   align-items: center;
 }
 .login form {
-  margin: 20px;
+  margin: 10px;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .user-button {
   color: orange;
@@ -126,7 +132,6 @@ button {
 
 form {
   display: inline-block;
-  height: $std-height;
 }
 footer {
   padding: 20px;
@@ -142,6 +147,7 @@ input {
   border: $std-border;
   color: rgb(235, 192, 112);
   width: 300px;
+  margin: 10px 0;
 }
 input::placeholder {
   text-align: center;

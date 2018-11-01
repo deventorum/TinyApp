@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<% include partials/_head %>
+
+<body>
+  <% include partials/_header %>
+  <div class="wrapper">
+    <main>
+      <form action="/login" method="POST" class='login-form'>
+        <input type="email" placeholder="Enter your email address" name='userEmail'>
+        <input id="password" type="password" name="password" placeholder="Enter your password" minlength=5>
+        <button class='user-button'>Login</button>
+      </form>
+      <p><a href="/register">Don't have an account yet?</a></p>
+      <% if (error != '') { %>
+      <p class="error">
+        <%= error %>
+      </p>
+      <% } %>
+    </main>
+  </div>
+  <% include partials/_footer.ejs %>
+</body>
+
+</html>

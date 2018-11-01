@@ -18,13 +18,13 @@ const users = {
 	'userRandomID': {
 		id: 'userRandomID',
 		userName: 'Bob', 
-		email: 'user@example.com', 
+		userEmail: 'user@example.com', 
 		password: 'purple-monkey-dinosaur'
 	},
 	'user2RandomID': {
 		id: 'user2RandomID',
 		userName: 'John', 
-		email: 'user2@example.com', 
+		userEmail: 'user2@example.com', 
 		password: 'dishwasher-funk'
 	}
 };
@@ -94,20 +94,40 @@ app.post('/register', (req, res) => {
 	}
 });
 
+app.get('/login', (req, res) => {
+	let templateVars = { user: users[req.cookies['userID']], error: ''};
+	res.render('urls_login', templateVars);
+});
+
+app.post('/login', (req, res) => {
+	const loginEmail = req.body.userEmail;
+	const loginPassword = req.body.password;
+	let loggedUser = '';
+	let templateVars = { urls: urlDatabase, user: users[req.cookies['userID']], error: ''};
+	Object.keys(users).forEach(user => {
+		if (users[user].userEmail === loginEmail && users[user].password === loginPassword) {
+			loggedUser = users[user].id;
+		}
+	});
+	if (loggedUser != '') {
+		res.cookie('userID', loggedUser);
+		templateVars.user = users[loggedUser];
+		res.render('urls_index', templateVars);
+	} else {
+		templateVars.error = 'The email address and password you entered did not match our records';
+		res.status(400);
+		res.render('urls_login', templateVars);
+	}
+
+});
+
+
+
+
 app.get('/urls.json', (req, res) => {
 	res.json(urlDatabase);
 });
 
-app.post('/urls/login', (req, res) => {
-	// This code has to be changed, out-of-date server-side logic
-	if (tools.validateEmail(req.body.userEmail)) {
-		// res.cookie('userEmail', req.body.userEmail);
-		res.redirect('/urls');
-	} else {
-		// let templateVars = { urls: urlDatabase, errorMessage: 'The entered email address is not valid!', userID: req.cookies['userID'] };
-		// res.render('urls_error', templateVars);
-	}
-});
 
 app.get('/urls/new', (req, res) => {
 	let templateVars = { urls: urlDatabase, user: users[req.cookies['userID']]};
