@@ -14,14 +14,27 @@ const urlDatabase = {
 	'b2xVn2': 'http://www.lighthouselabs.ca',
 	'9sm5xK': 'http://www.google.com'
 };
-const users = {};
+const users = { 
+	'userRandomID': {
+		id: 'userRandomID',
+		userName: 'Bob', 
+		email: 'user@example.com', 
+		password: 'purple-monkey-dinosaur'
+	},
+	'user2RandomID': {
+		id: 'user2RandomID',
+		userName: 'John', 
+		email: 'user2@example.com', 
+		password: 'dishwasher-funk'
+	}
+};
 
 app.get('/', (req, res) => {
-	res.send('Hello!');
+	res.redirect('/urls');
 });
 
 app.get('/urls', (req, res) => {
-	let templateVars = { urls: urlDatabase, userEmail: req.cookies['userEmail']};
+	let templateVars = { urls: urlDatabase, userID: req.cookies['userID']};
 	res.render('urls_index', templateVars);
 });
 
@@ -32,17 +45,53 @@ app.post('/urls', (req, res) => {
 });
 
 app.post('/logout', (req, res) => {
-	res.clearCookie('userEmail');
+	res.clearCookie('userID');
 	res.redirect('/urls');
 });
 
 app.get('/register', (req, res) => {
-	let templateVars = { userEmail: req.cookies['userEmail']};
+	let templateVars = { userID: req.cookies['userID'], error: ''};
 	res.render('register', templateVars);
 });
+
 app.post('/register', (req, res) => {
-	
-	res.redirect('/urls');
+	// Newly generated user ID;
+	const newID = tools.generateId();
+	console.log(newID);
+	const enteredUser = req.body.userName;
+	const enteredEmail = req.body.userEmail;
+	let templateVars = {userID: req.cookies['userID'], error: ''};
+
+	// password check
+	if (req.body.password !== req.body.confPassword) {
+		templateVars.error = 'passwords don\'t match';
+		res.status(400);
+		res.render('register', templateVars);
+		// existing user check
+	} else if (tools.validateUser(users, enteredUser, enteredEmail)) {
+		templateVars.error = 'User already exists';
+		res.status(400);
+		res.render('register', templateVars);
+		// incomplete form check (partially done on the front end)
+	} else if (enteredEmail === '' || enteredUser === '' || req.body.password === '') {
+		templateVars.error = 'Registration information is incomplete';
+		res.status(400);
+		res.render('register', templateVars);
+	} else if (!tools.validateEmail(enteredEmail)) {
+		templateVars.error = 'Entered email address is not valid';
+		res.status(400);
+		res.render('register', templateVars);
+	} else {
+		users[newID] = {
+			id: newID,
+			userName: enteredUser,
+			userEmail: enteredEmail,
+			password: req.body.password
+		};
+		res.cookie('userID', req.body.userName);
+		console.log(users);
+		res.redirect('/urls');
+	}
 });
 
 app.get('/urls.json', (req, res) => {
@@ -50,18 +99,18 @@ app.get('/urls.json', (req, res) => {
 });
 
 app.post('/urls/login', (req, res) => {
+	// This code has to be changed, out-of-date server-side logic
 	if (tools.validateEmail(req.body.userEmail)) {
 		res.cookie('userEmail', req.body.userEmail);
-		console.log('Cookies: ', res.cookie);
 		res.redirect('/urls');
 	} else {
-		let templateVars = { urls: urlDatabase, errorMessage: 'The entered email address is not valid!', userEmail: req.cookies['userEmail'] };
+		let templateVars = { urls: urlDatabase, errorMessage: 'The entered email address is not valid!', userID: req.cookies['userID'] };
 		res.render('urls_error', templateVars);
 	}
 });
 
 app.get('/urls/new', (req, res) => {
-	let templateVars = { urls: urlDatabase, userEmail: req.cookies['userEmail']};
+	let templateVars = { urls: urlDatabase, userID: req.cookies['userID']};
 	res.render('urls_new', templateVars);
 });
 
@@ -69,7 +118,7 @@ app.get('/urls/:id', (req, res) => {
 	let templateVars = {
 		shortURL: req.params.id,
 		longURL: urlDatabase,
-		userEmail: req.cookies['userEmail']};
+		userID: req.cookies['userID']};
 	res.render('urls_show', templateVars);
 });
 

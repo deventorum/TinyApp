@@ -441,6 +441,7 @@ footer p {
 
 input {
   height: 50px;
+  text-align: center;
   border-radius: 10px;
   border: 2px solid black;
   color: #ebc070;
