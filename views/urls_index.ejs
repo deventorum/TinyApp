@@ -8,16 +8,32 @@
   <div class="wrapper">
     <main>
       <% if (user !== undefined) { %>
-      <div class='user-links'>
+      <div>
         <h2>Your Links</h2>
         <ul>
           <% Object.keys(urls).forEach( key => { %>
           <% if (urls[key].id == user.id) { %>
-          <li><a href="<%= urls[key].url%>">
-              <%= `localhost:8080/u/${key}` %></a> : <a href="<%= urls[key].url%>">
-              <%= urls[key].url%></a>
-            <a href='/urls/<%= key %>' class="pseudo-button">Edit</a>
-            <form method="POST" action='/urls/<%= key %>/delete?_method=DELETE'><button class='delete-button'>Delete</button></form>
+          <li class='dataset'>
+            <div>
+              <p class='visited'>Visited:
+                <%= urls[key].counter %>
+              </p>
+            </div>
+            <div class='user-links'>
+              <p>
+                <a href="/u/<%= key %>">
+                  <%= `localhost:8080/u/${key}` %></a> <a href="<%= urls[key].url%>">
+                  <%= urls[key].url%>
+                </a>
+              </p>
+            </div>
+            <div>
+              <a href='/urls/<%= key %>' class="pseudo-button">More</a>
+            </div>
+            <form method="POST" action='/urls/<%= key %>/delete?_method=DELETE'>
+              <button class='delete-button'>Delete
+              </button>
+            </form>
           </li>
           <% } %>
           <% }) %>

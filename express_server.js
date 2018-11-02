@@ -17,10 +17,20 @@ app.use(cookieSession({
 app.use(methodOverride('_method'))
 
 const urlDatabase = {
-	'b2xVn2': {id: 'userRandomID',
-		url: 'http://www.lighthouselabs.ca'},
-	'9sm5xK': {id: 'user2RandomID',
-		url: 'http://www.google.com'}
+	'b2xVn2': {
+		id: 'userRandomID',
+		url: 'http://www.lighthouselabs.ca',
+		counter: 0,
+		userVisits: 0,
+		date: []
+	},
+	'9sm5xK': {
+		id: 'user2RandomID',
+		url: 'http://www.google.com',
+		counter: 0,
+		userVisits: 0,
+		date: []
+	}
 };
 const users = { 
 	'userRandomID': {
@@ -48,7 +58,13 @@ app.get('/urls', (req, res) => {
 
 app.post('/urls', (req, res) => {
 	let newShortURL = tools.generateRandomString();
-	urlDatabase[newShortURL] = {id: users[req.session['userID']].id, url: req.body.longURL};
+	urlDatabase[newShortURL] = {
+		id: users[req.session['userID']].id,
+		url: req.body.longURL,
+		counter:0,
+		userVisits: 0,
+		date: []
+	};
 	res.redirect(`/urls/${newShortURL}`);
 });
 
@@ -130,16 +146,19 @@ app.post('/login', (req, res) => {
 		res.status(403);
 		res.render('urls_login', templateVars);
 	}
-
 });
 
 
 // adds a new short link
 app.get('/urls/new', (req, res) => {
 	if (req.session['userID']) {
-		let templateVars = { urls: urlDatabase, user: users[req.session['userID']]};
+		let templateVars = {
+			urls: urlDatabase,
+			user: users[req.session['userID']]
+		};
 		if (users[req.session['userID']] !== undefined) {
 			res.render('urls_new', templateVars);
+			return
 		}
 	}
 	res.redirect('/urls');
@@ -151,7 +170,7 @@ app.get('/urls/:id', (req, res) => {
 		if (users[req.session['userID']].id === urlDatabase[req.params.id].id) {
 			let templateVars = {
 				shortURL: req.params.id,
-				longURL: urlDatabase,
+				urls: urlDatabase,
 				user: users[req.session['userID']]
 			};
 			res.render('urls_show', templateVars);
@@ -177,6 +196,26 @@ app.put('/urls/:id', (req, res) => {
 // Redirects user to the other website that store in URL database (no cookie needed)
 app.get('/u/:shortURL', (req, res) => {
 	let longURL = urlDatabase[req.params.shortURL].url;
+	// Analytics, checks all visits
+	urlDatabase[req.params.shortURL].counter++;
+	// Analytics, tracks only user specific visits
+	if (req.session['userID']) {
+		if (users[req.session['userID']].id === urlDatabase[req.params.shortURL].id) {
+			urlDatabase[req.params.shortURL].userVisits++;
+		}
+	}
+	// Creates a timestamp for every user 
+	if (req.session['userID']) {
+			urlDatabase[req.params.shortURL].date.push({
+				person: users[req.session['userID']].userName,
+				time: new Date()
+			})
+		} else {
+		urlDatabase[req.params.shortURL].date.push({
+			person: 'Anonimous User',
+			time: new Date()
+		})
+	}
 	res.redirect(longURL);
 });
 

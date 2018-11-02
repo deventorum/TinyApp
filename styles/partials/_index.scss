@@ -30,7 +30,6 @@ main {
 
 li {
   margin: 15px 0;
-  height: $std-height;
 }
 a {
   color: black;
@@ -139,6 +138,22 @@ footer {
     height: 35px;
   }
 }
+li.dataset {
+  display: flex;
+  justify-content: space-around;
+  max-width: 800px;
+  margin: 10px auto;
+
+  div,
+  form {
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+  }
+}
+.user-links {
+  flex-grow: 2;
+}
 
 .gen-nav li {
   margin: 0 20px;
@@ -156,6 +171,7 @@ footer {
 }
 .user-button {
   color: orange;
+  margin-bottom: 10px;
 }
 .user-button:hover {
   color: $black;
@@ -176,6 +192,7 @@ footer {
 }
 .bold {
   font-weight: bold;
+  margin: 10px 0;
 }
 .update-button:hover {
   background-color: lightgreen;
@@ -190,10 +207,10 @@ footer {
   border: $std-border;
   background-color: white;
   padding: 11.5px 15px;
-  height: 100%;
+  margin: 10px 0;
+  height: $std-height;
   display: inline-block;
   text-decoration: none;
-  margin: 10px 15px;
   border-radius: $std-radius;
 }
 .pseudo-button:hover {

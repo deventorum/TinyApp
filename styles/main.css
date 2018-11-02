@@ -287,7 +287,6 @@ main {
 
 li {
   margin: 15px 0;
-  height: 50px;
 }
 
 a {
@@ -439,6 +438,33 @@ footer p {
   height: 35px;
 }
 
+li.dataset {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  max-width: 800px;
+  margin: 10px auto;
+}
+
+li.dataset div,
+li.dataset form {
+  min-width: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.user-links {
+  -webkit-box-flex: 2;
+      -ms-flex-positive: 2;
+          flex-grow: 2;
+}
+
 .gen-nav li {
   margin: 0 20px;
   display: -webkit-box;
@@ -471,6 +497,7 @@ footer p {
 
 .user-button {
   color: orange;
+  margin-bottom: 10px;
 }
 
 .user-button:hover {
@@ -496,6 +523,7 @@ footer p {
 
 .bold {
   font-weight: bold;
+  margin: 10px 0;
 }
 
 .update-button:hover {
@@ -512,10 +540,10 @@ footer p {
   border: 2px solid black;
   background-color: white;
   padding: 11.5px 15px;
-  height: 100%;
+  margin: 10px 0;
+  height: 50px;
   display: inline-block;
   text-decoration: none;
-  margin: 10px 15px;
   border-radius: 10px;
 }
 

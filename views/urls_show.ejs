@@ -7,12 +7,29 @@
   <% include partials/_header %>
   <div class="wrapper">
     <main>
-      <h2>ShortURL: <a href="<%= longURL[shortURL].url %>"><span class='bold'>
-            <%= `localhost:8080/u/${shortURL}` %></span></a></h2>
+      <h2>ShortURL: <a href="/u/<%= shortURL %>"><span class='bold'>
+            <%= `localhost:8080/u/${shortURL}` %></span></a>
+      </h2>
       <form action="/urls/<%= shortURL %>?_method=PUT" method="POST">
-        <input type="text" name='updatedURL' placeholder=' <%= longURL[shortURL].url %> ' value='<%= longURL[shortURL].url %>'>
-        <button class='update-button'>Update</button>
+        <input type="text" name="updatedURL" placeholder=" <%= urls[shortURL].url %> " value="<%= urls[shortURL].url %>">
+        <button class="update-button">Update</button>
       </form>
+      <p class="bold">Total Visits:
+        <%= urls[shortURL].counter %>
+      </p>
+      <p class="bold">User Visits:
+        <%= urls[shortURL].userVisits %>
+      </p>
+      <div class="analytics">
+        <h4>Visit Statistic</h4>
+        <% urls[shortURL].date.forEach(item => { %>
+        <p>
+          <%= `${item.person} on ${item.time}` %>
+        </p>
+        <% }) %>
+      </div>
+
+
       <p><a href="/urls/new" class="pseudo-button">Create a new link</a></p>
       <p><a href="/urls" class="pseudo-button">Show my links</a></p>
     </main>
