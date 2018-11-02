@@ -4,6 +4,7 @@ const PORT = 8080; // default port 8080
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const tools = require('./functions');
+const bcrypt = require('bcrypt');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
@@ -21,13 +22,13 @@ const users = {
 		id: 'userRandomID',
 		userName: 'Bob', 
 		userEmail: 'user@example.com', 
-		password: 'purple-monkey-dinosaur'
+		password: bcrypt.hashSync('purple-monkey-dinosaur', 10)
 	},
 	'user2RandomID': {
 		id: 'user2RandomID',
 		userName: 'John', 
 		userEmail: 'user2@example.com', 
-		password: 'dishwasher-funk'
+		password: bcrypt.hashSync('dishwasher-funk', 10)
 	}
 };
 
@@ -88,7 +89,7 @@ app.post('/register', (req, res) => {
 			id: newID,
 			userName: enteredUser,
 			userEmail: enteredEmail,
-			password: req.body.password
+			password: bcrypt.hashSync(req.body.password, 10)
 		};
 		res.cookie('userID', newID);
 		console.log(users);
@@ -109,7 +110,7 @@ app.post('/login', (req, res) => {
 	let loggedUser = '';
 	let templateVars = { urls: urlDatabase, user: users[req.cookies['userID']], error: ''};
 	Object.keys(users).forEach(user => {
-		if (users[user].userEmail === loginEmail && users[user].password === loginPassword) {
+		if (users[user].userEmail === loginEmail && bcrypt.compareSync(loginPassword, users[user].password)) {
 			loggedUser = users[user].id;
 		}
 	});
@@ -188,4 +189,6 @@ app.post('/urls/:id/delete', (req, res) => {
 
 app.listen(PORT, () => {
 	console.log(`Example app listening on port ${PORT}!`);
+	console.log(bcrypt.hashSync('purple-monkey-dinosaur', 10));
+	console.log(bcrypt.hashSync('purple-monkey-dinosaur', 10));
 });
