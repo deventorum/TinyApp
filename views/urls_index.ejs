@@ -16,12 +16,12 @@
           <li><a href="<%= urls[key].url%>">
               <%= `localhost:8080/u/${key}` %></a> : <a href="<%= urls[key].url%>">
               <%= urls[key].url%></a>
-            <a href='/urls/<%= key %>' class="edit-button">Edit</a>
-            <form method="POST" action='/urls/<%= key %>/delete'><button class='delete-button'>Delete</button></form>
+            <a href='/urls/<%= key %>' class="pseudo-button">Edit</a>
+            <form method="POST" action='/urls/<%= key %>/delete?_method=DELETE'><button class='delete-button'>Delete</button></form>
           </li>
           <% } %>
           <% }) %>
-          <li><a href="/urls/new">Create a new link</a></li>
+          <li><a href="/urls/new" class="pseudo-button">Create a new link</a></li>
         </ul>
       </div>
       <% } %>

@@ -186,17 +186,17 @@ footer {
   max-width: 1140px;
   margin: 0 auto;
 }
-.edit-button {
+.pseudo-button {
   border: $std-border;
   background-color: white;
   padding: 11.5px 15px;
   height: 100%;
   display: inline-block;
   text-decoration: none;
-  margin: 0px 15px;
+  margin: 10px 15px;
   border-radius: $std-radius;
 }
-.edit-button:hover {
+.pseudo-button:hover {
   background-color: lightblue;
   transition: $trans;
 }

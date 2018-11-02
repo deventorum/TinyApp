@@ -9,11 +9,12 @@
     <main>
       <h2>ShortURL: <a href="<%= longURL[shortURL].url %>"><span class='bold'>
             <%= `localhost:8080/u/${shortURL}` %></span></a></h2>
-      <form action="/urls/<%= shortURL %>" method="POST">
+      <form action="/urls/<%= shortURL %>?_method=PUT" method="POST">
         <input type="text" name='updatedURL' placeholder=' <%= longURL[shortURL].url %> ' value='<%= longURL[shortURL].url %>'>
         <button class='update-button'>Update</button>
       </form>
-      <p><a href="/urls/new">Create a new link</a></p>
+      <p><a href="/urls/new" class="pseudo-button">Create a new link</a></p>
+      <p><a href="/urls" class="pseudo-button">Show my links</a></p>
     </main>
   </div>
   <% include partials/_footer %>

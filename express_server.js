@@ -5,14 +5,16 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const tools = require('./functions');
 const bcrypt = require('bcrypt');
+var methodOverride = require('method-override')
 
+app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({extended: true}));
+app.use('/styles', express.static(__dirname + '/styles'));
 app.use(cookieSession({
 	name: 'session',
 	keys: ['asdfg'],
 }));
-app.use(bodyParser.urlencoded({extended: true}));
-app.set('view engine', 'ejs');
-app.use('/styles', express.static(__dirname + '/styles'));
+app.use(methodOverride('_method'))
 
 const urlDatabase = {
 	'b2xVn2': {id: 'userRandomID',
@@ -160,7 +162,7 @@ app.get('/urls/:id', (req, res) => {
 });
 
 // Updates an existing short URL if user has a cookie 
-app.post('/urls/:id', (req, res) => {
+app.put('/urls/:id', (req, res) => {
 	if (req.session['userID']) {
 		if (users[req.session['userID']].id === urlDatabase[req.params.id].id) {
 			urlDatabase[req.params.id] = {
@@ -179,7 +181,7 @@ app.get('/u/:shortURL', (req, res) => {
 });
 
 // Deletes a short URL if user has a cookie
-app.post('/urls/:id/delete', (req, res) => {
+app.delete('/urls/:id/delete', (req, res) => {
 	if (req.session['userID']) {
 		if (users[req.session['userID']].id === urlDatabase[req.params.id].id) {
 			delete urlDatabase[req.params.id];
