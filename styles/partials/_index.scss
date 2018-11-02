@@ -63,7 +63,7 @@ input::placeholder {
 
 button {
   border: $std-border;
-  background-color: white;
+  background-color: $white;
   font-size: 2rem;
   font-family: sans-serif;
   font-weight: normal;
@@ -196,6 +196,7 @@ li.dataset {
 }
 .update-button:hover {
   background-color: lightgreen;
+  transition: $trans;
 }
 
 .wrapper {
@@ -205,7 +206,7 @@ li.dataset {
 }
 .pseudo-button {
   border: $std-border;
-  background-color: white;
+  background-color: $white;
   padding: 11.5px 15px;
   margin: 10px 0;
   height: $std-height;
