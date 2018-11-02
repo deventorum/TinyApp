@@ -111,7 +111,7 @@ app.post('/login', (req, res) => {
 	const loginEmail = req.body.userEmail;
 	const loginPassword = req.body.password;
 	let loggedUser = '';
-	let templateVars = { urls: urlDatabase, error: ''};
+	let templateVars = { urls: urlDatabase, user: users[req.session['userID']], error: ''};
 	
 	// Server checks if there is a match (by email and hashed password) in the existing database
 	Object.keys(users).forEach(user => {
