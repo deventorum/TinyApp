@@ -63,7 +63,6 @@ app.get('/register', (req, res) => {
 app.post('/register', (req, res) => {
 	// Newly generated user ID;
 	const newID = tools.generateId();
-	console.log(newID);
 	const enteredUser = req.body.userName;
 	const enteredEmail = req.body.userEmail;
 	let templateVars = {user: users[req.session['userID']], error: ''};
@@ -73,12 +72,12 @@ app.post('/register', (req, res) => {
 		templateVars.error = 'passwords don\'t match';
 		res.status(400);
 		res.render('register', templateVars);
-		// existing user check
+	// existing user check
 	} else if (tools.validateUser(users, enteredUser, enteredEmail)) {
 		templateVars.error = 'User already exists';
 		res.status(400);
 		res.render('register', templateVars);
-		// incomplete form check (partially done on the front end)
+	// incomplete form check (partially done on the front end)
 	} else if (enteredEmail === '' || enteredUser === '' || req.body.password === '') {
 		templateVars.error = 'Registration information is incomplete';
 		res.status(400);
@@ -95,11 +94,11 @@ app.post('/register', (req, res) => {
 			password: bcrypt.hashSync(req.body.password, 10)
 		};
 		req.session['userID'] = newID;
-		console.log(users);
 		res.redirect('/urls');
 	}
 });
 
+// Login page
 app.get('/login', (req, res) => {
 	let templateVars = {
 		user: users[req.session['userID']],
@@ -107,11 +106,14 @@ app.get('/login', (req, res) => {
 	res.render('urls_login', templateVars);
 });
 
+// 
 app.post('/login', (req, res) => {
 	const loginEmail = req.body.userEmail;
 	const loginPassword = req.body.password;
 	let loggedUser = '';
-	let templateVars = { urls: urlDatabase, user: users[req.session['userID']], error: ''};
+	let templateVars = { urls: urlDatabase, error: ''};
+	
+	// Server checks if there is a match (by email and hashed password) in the existing database
 	Object.keys(users).forEach(user => {
 		if (users[user].userEmail === loginEmail && bcrypt.compareSync(loginPassword, users[user].password)) {
 			loggedUser = users[user].id;
@@ -129,10 +131,6 @@ app.post('/login', (req, res) => {
 
 });
 
-
-app.get('/urls.json', (req, res) => {
-	res.json(urlDatabase);
-});
 
 // adds a new short link
 app.get('/urls/new', (req, res) => {

@@ -1,4 +1,7 @@
-// General styles
+///////////////////
+// General styles//
+///////////////////
+
 body {
   text-align: center;
   background-color: $white;
@@ -39,7 +42,45 @@ p {
   margin: 0;
 }
 
-//Specific styles
+label {
+  margin-left: 10px;
+}
+
+input {
+  height: $std-height;
+  text-align: center;
+  border-radius: $std-radius;
+  border: $std-border;
+  color: rgb(235, 192, 112);
+  width: 300px;
+  margin: 10px 0;
+  padding: 10px 10px;
+}
+
+input::placeholder {
+  text-align: center;
+  color: rgb(235, 192, 112);
+}
+
+button {
+  border: $std-border;
+  background-color: white;
+  font-size: 2rem;
+  font-family: sans-serif;
+  font-weight: normal;
+  height: $std-height;
+  padding: 10px 15px;
+  display: inline-block;
+  border-radius: $std-radius;
+}
+form {
+  display: inline-block;
+}
+
+////////////////////
+//Specific styles///
+////////////////////
+
 header {
   background-color: $black;
 
@@ -65,9 +106,14 @@ header {
     }
   }
 }
-label {
-  margin-left: 10px;
+footer {
+  padding: 20px;
+  background-color: $black;
+  p {
+    color: $white;
+  }
 }
+
 .registration {
   height: auto;
   display: flex;
@@ -83,6 +129,7 @@ label {
     margin: 10px 0;
   }
 }
+
 .logged {
   flex-direction: column;
   justify-content: space-around;
@@ -92,6 +139,7 @@ label {
     height: 35px;
   }
 }
+
 .gen-nav li {
   margin: 0 20px;
   display: flex;
@@ -115,51 +163,11 @@ label {
   transition: $trans;
 }
 
-button {
-  border: $std-border;
-  background-color: white;
-  font-size: 2rem;
-  font-family: sans-serif;
-  font-weight: normal;
-  height: $std-height;
-  padding: 10px 15px;
-  display: inline-block;
-  border-radius: $std-radius;
-}
 .delete-button:hover {
   background-color: red;
   transition: $trans;
 }
 
-form {
-  display: inline-block;
-}
-footer {
-  padding: 20px;
-  background-color: $black;
-  p {
-    color: $white;
-  }
-}
-input {
-  height: $std-height;
-  text-align: center;
-  border-radius: $std-radius;
-  border: $std-border;
-  color: rgb(235, 192, 112);
-  width: 300px;
-  margin: 10px 0;
-}
-input::placeholder {
-  text-align: center;
-  color: rgb(235, 192, 112);
-}
-
-input[type='text'],
-input[type='email'],
-input[type='password'] {
-  padding: 10px 10px;
-}
 .error {
   color: red;
 }
