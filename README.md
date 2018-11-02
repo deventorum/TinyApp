@@ -1,6 +1,6 @@
 # TinyApp Project
 
-TinyApp is a full stack web application built with Node and Express. The app will allow users to shorten long URLs much like TinyURL.com and bit.ly do. SCSS partials were used to create styles for the application
+TinyApp is a full stack web application built with Node and Express. The app will allow users to shorten long URLs much like TinyURL.com and bit.ly do and track visit analytics for their links. SCSS partials were used to create styles for the application
 
 ## Final Product
 
@@ -8,6 +8,7 @@ TinyApp is a full stack web application built with Node and Express. The app wil
 !["Screenshot of registration page"](https://github.com/deventorum/TinyApp/blob/master/docs/registration_page.png)
 !["Screenshot of login page"](https://github.com/deventorum/TinyApp/blob/master/docs/login_page.png)
 !["Screenshot of URLs page when user is signed in"](https://github.com/deventorum/TinyApp/blob/master/docs/link_list.png)
+!["Screenshot of link analytics page"](https://github.com/deventorum/TinyApp/blob/master/docs/Visit_stats.png)
 
 ## Dependencies
 
