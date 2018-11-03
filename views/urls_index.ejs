@@ -13,22 +13,24 @@
         <ul>
           <% Object.keys(urls).forEach( key => { %>
           <% if (urls[key].id == user.id) { %>
-          <li class='dataset'>
+          <li class="dataset">
             <div>
-              <p class='visited'>Visited:
+              <p class="visited">Visited:
                 <%= urls[key].counter %>
               </p>
             </div>
-            <div class='user-links'>
+            <div class="user-links">
               <p>
                 <a href="/u/<%= key %>">
-                  <%= `localhost:8080/u/${key}` %></a> <a href="<%= urls[key].url%>">
+                   localhost:8080/u/<%= key %>
+                </a> 
+                <a href="<%= urls[key].url%>">
                   <%= urls[key].url%>
                 </a>
               </p>
             </div>
             <div>
-              <a href='/urls/<%= key %>' class="pseudo-button">More</a>
+              <a href="/urls/<%= key %>" class="pseudo-button">More</a>
             </div>
             <form method="POST" action='/urls/<%= key %>/delete?_method=DELETE'>
               <button class='delete-button'>Delete
@@ -37,7 +39,9 @@
           </li>
           <% } %>
           <% }) %>
-          <li><a href="/urls/new" class="pseudo-button">Create a new link</a></li>
+          <li>
+            <a href="/urls/new" class="pseudo-button">Create a new link</a>
+          </li>
         </ul>
       </div>
       <% } %>

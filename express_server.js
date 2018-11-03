@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const tools = require('./functions');
 const bcrypt = require('bcrypt');
-var methodOverride = require('method-override')
+var methodOverride = require('method-override');
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
@@ -14,7 +14,7 @@ app.use(cookieSession({
 	name: 'session',
 	keys: ['asdfg'],
 }));
-app.use(methodOverride('_method'))
+app.use(methodOverride('_method'));
 
 const urlDatabase = {
 	'b2xVn2': {
@@ -158,7 +158,7 @@ app.get('/urls/new', (req, res) => {
 		};
 		if (users[req.session['userID']] !== undefined) {
 			res.render('urls_new', templateVars);
-			return
+			return;
 		}
 	}
 	res.redirect('/urls');
@@ -184,10 +184,7 @@ app.get('/urls/:id', (req, res) => {
 app.put('/urls/:id', (req, res) => {
 	if (req.session['userID']) {
 		if (users[req.session['userID']].id === urlDatabase[req.params.id].id) {
-			urlDatabase[req.params.id] = {
-				id: users[req.session['userID']].id,
-				url: req.body.updatedURL
-			};
+			urlDatabase[req.params.id].url =  req.body.updatedURL;
 		}
 	}
 	res.redirect('/urls');
@@ -206,15 +203,15 @@ app.get('/u/:shortURL', (req, res) => {
 	}
 	// Creates a timestamp for every user 
 	if (req.session['userID']) {
-			urlDatabase[req.params.shortURL].date.push({
-				person: users[req.session['userID']].userName,
-				time: new Date()
-			})
-		} else {
+		urlDatabase[req.params.shortURL].date.push({
+			person: users[req.session['userID']].userName,
+			time: new Date()
+		});
+	} else {
 		urlDatabase[req.params.shortURL].date.push({
 			person: 'Anonimous User',
 			time: new Date()
-		})
+		});
 	}
 	res.redirect(longURL);
 });
